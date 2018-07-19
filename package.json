@@ -21,6 +21,7 @@
     "electron": "^2.0.4"
   },
   "dependencies": {
+    "react": "^16.4.1",
     "shelljs": "^0.8.2"
   }
 }

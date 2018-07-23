@@ -4,8 +4,11 @@
   "description": "Cross platform Kidtronics compiler",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron ."
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,9 @@
   },
   "dependencies": {
     "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4",
+    "react-sortable-hoc": "^0.8.3",
     "shelljs": "^0.8.2"
   }
 }

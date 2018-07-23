@@ -1,10 +1,4 @@
 const {app, BrowserWindow, Menu} = require('electron')
-var shell = require('shelljs');
-shell.config.execPath = process.execPath;
-console.log(process.execPath);
-console.log(shell.config.execPath);
-shell.exec('echo hello',{async:true}).stdout;
-shell.exec('echo done',{async:true}).stdout;
   
   // Keep a global reference of the window object, if you don't, the window will
   // be closed automatically when the JavaScript object is garbage collected.
@@ -15,8 +9,8 @@ shell.exec('echo done',{async:true}).stdout;
     win = new BrowserWindow({width: 800, height: 600})
   
     // and load the index.html of the app.
-    win.loadFile('index.html')
-  
+    //win.loadFile('./public/index.html')
+     win.loadURL('http://localhost:3000');
 
   
     // Emitted when the window is closed.

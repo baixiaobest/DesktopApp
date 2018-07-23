@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Hello World!</title>
+      <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+      <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+      <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    </head>
+    <body>
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+      </nav>
+      <h1>Hello World!</h1>
+      <p>
+        We are using node <script>document.write(process.versions.node)</script>,
+        Chrome <script>document.write(process.versions.chrome)</script>,
+        and Electron <script>document.write(process.versions.electron)</script>.
+      </p>
+      <p>
+        <button type="button" class="btn btn-primary" id='compile'> Compile </button>
+        <script src="index.js">
+        </script>
+      </p>
+      <div id="root"></div>
+    </body>
+  </html>

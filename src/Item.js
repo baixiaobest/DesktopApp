@@ -22,8 +22,9 @@ function collect(connect, monitor) {
 class Item extends React.Component {
     // const {connectDragSource, item} = this.props;
     render(){
+        const opacity = this.props.isDragging ? 0 : 1;
         return this.props.connectDragSource(
-                <div className="label label-default">
+                <div className="label label-default" style={{ opacity }}>
                     {this.props.item.name}
                 </div>
             )

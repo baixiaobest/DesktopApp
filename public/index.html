@@ -6,6 +6,9 @@
       <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
       <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
       <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+      <script src="../blockly/blockly_compressed.js"></script>
+      <script src="../blockly/blocks_compressed.js"></script>
+      <script src="../blockly/msg/js/en.js"></script>
     </head>
     <body>
       <nav class="navbar navbar-light bg-light">
@@ -13,15 +16,113 @@
       </nav>
       <h1>Hello World!</h1>
       <p>
-        We are using node <script>document.write(process.versions.node)</script>,
-        Chrome <script>document.write(process.versions.chrome)</script>,
-        and Electron <script>document.write(process.versions.electron)</script>.
-      </p>
-      <p>
         <button type="button" class="btn btn-primary" id='compile'> Compile </button>
-        <script src="index.js">
-        </script>
       </p>
+      <script src="index.js"></script>
       <div id="root"></div>
+      <xml id="toolbox" style="display: none;">
+        <category name="Logic">
+          <block type="controls_if"></block>
+          <block type="logic_compare">
+            <field name="OP">EQ</field>
+          </block>
+          <block type="logic_negate"></block>
+          <block type="logic_boolean">
+            <field name="BOOL">TRUE</field>
+          </block>
+        </category>
+        <category name="Loop">
+          <block type="controls_repeat_ext">
+            <value name="TIMES">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="controls_whileUntil">
+            <field name="MODE">WHILE</field>
+          </block>
+          <block type="controls_for">
+            <field name="VAR" id="65X?WT-FMq#sdH:G-TpC" variabletype="">i</field>
+            <value name="FROM">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="TO">
+              <shadow type="math_number">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="controls_flow_statements" disabled="true">
+            <field name="FLOW">BREAK</field>
+          </block>
+        </category>
+        <category name="Variables" custom="VARIABLE"></category>
+        <category name="Math">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+          <block type="math_arithmetic">
+            <field name="OP">ADD</field>
+            <value name="A">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="B">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_single">
+            <field name="OP">ROOT</field>
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">9</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_trig">
+            <field name="OP">SIN</field>
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">45</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_constant">
+            <field name="CONSTANT">PI</field>
+          </block>
+          <block type="math_number_property">
+            <mutation divisor_input="false"></mutation>
+            <field name="PROPERTY">EVEN</field>
+            <value name="NUMBER_TO_CHECK">
+              <shadow type="math_number">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="math_round">
+            <field name="OP">ROUND</field>
+            <value name="NUM">
+              <shadow type="math_number">
+                <field name="NUM">3.1</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+      </xml>
+      <!-- <div id="blocklyDiv" style="height: 480px; width: 600px;"></div> -->
+      <div id="blockStart"></div>
+      <div id="blocklyDiv" style="position: absolute"></div>
+      <script src="blockly.js"></script>
     </body>
   </html>

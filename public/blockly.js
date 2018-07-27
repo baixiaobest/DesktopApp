@@ -1,4 +1,4 @@
-const electron = require('electron');
+var electron = require('electron');
 
 // var workspacePlayground = Blockly.inject('blocklyDiv',{toolbox: document.getElementById('toolbox')});
 

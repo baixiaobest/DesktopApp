@@ -1,4 +1,4 @@
-const electron = require('electron');
+var electron = require('electron');
 // var shell = require('shelljs');
 //const smalltalk = require('smalltalk/native');
 const prompt = require('electron-prompt');

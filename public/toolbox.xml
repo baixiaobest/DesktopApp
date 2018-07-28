@@ -1,4 +1,4 @@
-<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox">
   <category name="Logic">
     <block type="controls_if"></block>
     <block type="logic_compare">

@@ -1,4 +1,5 @@
 var electron = require('electron');
+var prompt = require('electron-prompt');
 
 var finishLoadingXML = function(toolboxStr) {
   // var workspacePlayground = Blockly.inject('blocklyDiv',{toolbox: document.getElementById('toolbox')});
@@ -40,3 +41,17 @@ $(document).ready(function(){
   });
 });
 
+Blockly.prompt = function(msg, defaultValue, callabck) {
+  prompt({
+    title: defaultValue,
+    label: msg,
+    type: 'input',
+    value: defaultValue
+  })
+  .then((r) => {
+    if (r !== null) {
+      callabck(r);
+    }
+  })
+  .catch(console.error);
+}

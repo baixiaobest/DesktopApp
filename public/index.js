@@ -1,7 +1,6 @@
 var electron = require('electron');
 // var shell = require('shelljs');
 //const smalltalk = require('smalltalk/native');
-const prompt = require('electron-prompt');
 // shell.config.execPath = process.execPath;
 
 

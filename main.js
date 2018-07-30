@@ -12,9 +12,6 @@ const {app, BrowserWindow, Menu} = require('electron')
     win.loadFile('./public/index.html')
     // win.loadURL('http://localhost:3000');
 
-    // Open the developer tools
-    win.webContents.openDevTools();
-
     // Emitted when the window is closed.
     win.on('closed', () => {
       // Dereference the window object, usually you would store windows

@@ -1,7 +1,7 @@
 var electron = require('electron');
 var prompt = require('electron-prompt');
 
-var finishLoadingXML = function(toolboxStr) {
+var finishLoadingToolBox = function(toolboxStr) {
   // var workspacePlayground = Blockly.inject('blocklyDiv',{toolbox: document.getElementById('toolbox')});
   var blockStart = document.getElementById('blockStart');
   var blocklyDiv = document.getElementById('blocklyDiv');
@@ -36,12 +36,12 @@ $(document).ready(function(){
     url: "./toolbox.xml",
     dataType: "text",
     success: function (toolbox) {
-        finishLoadingXML(toolbox);
+        finishLoadingToolBox(toolbox);
     }
   });
 });
 
-Blockly.prompt = function(msg, defaultValue, callabck) {
+Blockly.prompt = function(msg, defaultValue, callback) {
   prompt({
     title: defaultValue,
     label: msg,
@@ -50,7 +50,7 @@ Blockly.prompt = function(msg, defaultValue, callabck) {
   })
   .then((r) => {
     if (r !== null) {
-      callabck(r);
+      callback(r);
     }
   })
   .catch(console.error);

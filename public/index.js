@@ -5,7 +5,7 @@ var electron = require('electron');
 
 
 function translateBlocksIntoCode() {
-    var code = Blockly.JavaScript.workspaceToCode(workspace);
+    var code = Blockly.Kidtronics.workspaceToCode(workspace);
     $('#codeArea').val(code);
 }
 

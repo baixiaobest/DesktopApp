@@ -1,4 +1,4 @@
-<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+<xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox">
   <category name="Logic">
     <block type="controls_if"></block>
     <block type="logic_compare">
@@ -42,7 +42,8 @@
       <field name="FLOW">BREAK</field>
     </block>
   </category>
-  <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
+  <category name="Dynamic Variables" colour="#A65C81" custom="VARIABLE">
+  </category>
   <category name="Math">
     <block type="math_number">
       <field name="NUM">0</field>

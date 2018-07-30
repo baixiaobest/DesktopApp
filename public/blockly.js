@@ -1,12 +1,14 @@
-const electron = require('electron');
+var electron = require('electron');
+var prompt = require('electron-prompt');
 
-// var workspacePlayground = Blockly.inject('blocklyDiv',{toolbox: document.getElementById('toolbox')});
-
+var finishLoadingToolBox = function(toolboxStr) {
+  // var workspacePlayground = Blockly.inject('blocklyDiv',{toolbox: document.getElementById('toolbox')});
   var blockStart = document.getElementById('blockStart');
   var blocklyDiv = document.getElementById('blocklyDiv');
-  var workspacePlayground = Blockly.inject(blocklyDiv,
-      {toolbox: document.getElementById('toolbox')});
-    var workSpaceStartY = blockStart.getBoundingClientRect().top;
+  workspace = Blockly.inject(blocklyDiv,
+      {toolbox: toolboxStr});
+  var workSpaceStartY = blockStart.getBoundingClientRect().top;
+
   var onresize = function(e) {
     const remote = electron.remote
     var bounds = remote.getCurrentWindow().webContents.getOwnerBrowserWindow().getBounds()
@@ -25,4 +27,31 @@ const electron = require('electron');
   };
   window.addEventListener('resize', onresize, false);
   onresize();
-  Blockly.svgResize(workspacePlayground);
+  Blockly.svgResize(workspace);
+}
+
+$(document).ready(function(){
+  $.ajax({
+    type: "GET",
+    url: "./toolbox.xml",
+    dataType: "text",
+    success: function (toolbox) {
+        finishLoadingToolBox(toolbox);
+    }
+  });
+});
+
+Blockly.prompt = function(msg, defaultValue, callback) {
+  prompt({
+    title: defaultValue,
+    label: msg,
+    type: 'input',
+    value: defaultValue
+  })
+  .then((r) => {
+    if (r !== null) {
+      callback(r);
+    }
+  })
+  .catch(console.error);
+}

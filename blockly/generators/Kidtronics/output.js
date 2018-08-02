@@ -28,6 +28,6 @@ Blockly.Kidtronics['output_turn_on_num_leds'] = function(block) {
     Blockly.Kidtronics.definitionsAndIncludes_['LEDArrayConnectionDefinition'] = 'LEDArrayConnection ledConnection;'; 
     Blockly.Kidtronics.setups_['Serial'] = 'Serial.begin(LED_ARRAY_BAUD_RATE);';
     Blockly.Kidtronics.setups_['LEDArrayConnection'] = 'ledConnection.setSerial(&Serial);';
-    var code = 'ledConnection.setNumberOfLEDsOn(' + value_num + ');\n';
+    var code = 'ledConnection.setNumberOfLEDsOn((unsigned int)' + value_num + ');\n';
     return code;
   };

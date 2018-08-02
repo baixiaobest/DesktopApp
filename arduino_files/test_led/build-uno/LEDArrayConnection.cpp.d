@@ -1,4 +1,5 @@
-build-uno/test_led.ino.o: test_led.ino \
+build-uno/LEDArrayConnection.cpp.o: LEDArrayConnection.cpp \
+ LEDArrayConnection.h \
  /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/Arduino.h \
  /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/binary.h \
  /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/WCharacter.h \
@@ -10,4 +11,4 @@ build-uno/test_led.ino.o: test_led.ino \
  /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/USBAPI.h \
  /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/Arduino.h \
  /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/variants/standard/pins_arduino.h \
- LEDArrayConnection.h var.h ModulesBaudRate.h
+ ModulesBaudRate.h SerializerUtils.h MessageConstants.h

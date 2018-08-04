@@ -4,6 +4,8 @@ goog.provide('Blockly.Kidtronics');
 
 goog.require('Blockly.Generator');
 
+var includes = require('../blockly/generators/Kidtronics/includes.js');
+
 Blockly.Kidtronics = new Blockly.Generator('Kidtronics');
 
 Blockly.Kidtronics.addReservedWords(
@@ -11,8 +13,8 @@ Blockly.Kidtronics.addReservedWords(
 );
 
 Blockly.Kidtronics.DeveloperIncludes = {
-    var: '#include "var.h"',
-    ModulesBaudRate: '#include "ModulesBaudRate.h"'
+    var: includes.var,
+    ModulesBaudRate: includes.ModulesBaudRate
 }
 
 /**

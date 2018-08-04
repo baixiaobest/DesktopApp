@@ -1,2 +1,7 @@
 arduino_files/test_led/build-uno/
 arduino_files/test_led/test_led.ino
+arduino_files/test_led/test_led.ino
+arduino_files/test_led/build-uno/test_led.ino.o
+arduino_files/test_led/build-uno/test_led.hex
+arduino_files/test_led/build-uno/test_led.elf
+arduino_files/test_led/build-uno/test_led.bin

@@ -1,12 +1,25 @@
-void setup() {
-  // put your setup code here, to run once:
-  pinMode(LED_BUILTIN, OUTPUT);
+#include "LEDArrayConnection.h"
+#include "var.h"
+#include "ModulesBaudRate.h"
+
+var i;
+
+LEDArrayConnection ledConnection;
+void setup()
+{
+  Serial.begin(LED_ARRAY_BAUD_RATE);
+  ledConnection.setSerial(&Serial);
 }
 
+
 void loop() {
-  // put your main code here, to run repeatedly:
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(1000);
+  for (i = 0; i <= 8; i++) {
+    ledConnection.setNumberOfLEDsOn((unsigned int)i);
+    delay(500);
+  }
+  for (i = 8; i >= 0; i--) {
+    ledConnection.setNumberOfLEDsOn((unsigned int)i);
+    delay(500);
+  }
+
 }

@@ -4,11 +4,18 @@ goog.provide('Blockly.Kidtronics');
 
 goog.require('Blockly.Generator');
 
+var includes = require('../blockly/generators/Kidtronics/includes.js');
+
 Blockly.Kidtronics = new Blockly.Generator('Kidtronics');
 
 Blockly.Kidtronics.addReservedWords(
     'var,setup,loop,if,else,for,switch,case,while,do,break,continue,return,goto,define,include,HIGH,LOW,INPUT,OUTPUT,INPUT_PULLUP,true,false,interger, constants,floating,point,void,bookean,char,unsigned,byte,int,word,long,float,double,string,String,array,static, volatile,const,sizeof,pinMode,digitalWrite,digitalRead,analogReference,analogRead,analogWrite,tone,noTone,shiftOut,shitIn,pulseIn,millis,micros,delay,delayMicroseconds,min,max,abs,constrain,map,pow,sqrt,sin,cos,tan,randomSeed,random,lowByte,highByte,bitRead,bitWrite,bitSet,bitClear,bit,attachInterrupt,detachInterrupt,interrupts,noInterrupts'
 );
+
+Blockly.Kidtronics.DeveloperIncludes = {
+    var: includes.var,
+    ModulesBaudRate: includes.ModulesBaudRate
+}
 
 /**
  * Order of operation ENUMs.
@@ -87,6 +94,11 @@ Blockly.Kidtronics.finish = function(code) {
         else {
             definitions.push(def);
         }
+    }
+
+    // Add developer includes.
+    for (var name in Blockly.Kidtronics.DeveloperIncludes) {
+        includes.push(Blockly.Kidtronics.DeveloperIncludes[name]);
     }
 
     // Put setup dictionary into a list.

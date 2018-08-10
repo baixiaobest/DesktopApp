@@ -12,7 +12,6 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
-//#include <typeinfo>
 
 const int DATA_STRING_SIZE = 11;
 
@@ -20,14 +19,12 @@ const int DATA_STRING_SIZE = 11;
 //input a variable and it will serialize it
 template <typename T>
 void Serialize(char* buffer, T input, sp::DataType dataType);
+
+//serialize a string
 void SerializeString(char* buffer, char* input);
 
 //checksum
 static char calculateCheckSum(char* str);
-
-    //get data type
-//    template<typename T>
-//    sp::DataType getDataType(T &input);
 
 //return data in string
 template<typename T>

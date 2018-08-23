@@ -15,3 +15,16 @@ $("#compile").click(function(){
 
     fs.writeFile('./arduino_files/test_led/test_led.ino', code); 
 });
+
+$("#devices_list").click(function(){
+    console.log("hi");
+    $('#devices_list').empty();
+    var files = shell.ls('-A','/dev');
+    for(var i = 0; i < files.length; i++){
+        var subStr = files[i].substring(0,6);
+        if(subStr === 'cu.usb')
+        {
+            $('#devices_list').append('<option>'+files[i]+'</option>');
+        }
+    }
+});

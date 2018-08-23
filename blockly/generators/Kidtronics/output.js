@@ -1,20 +1,5 @@
 /**
- * Visual Blocks Language
- *
- * Copyright 2012 Fred Lin.
- * https://github.com/gasolin/BlocklyDuino
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * author: Baixiao Huang 8/22/2018
  */
 'use strict';
 
@@ -24,12 +9,48 @@ goog.require('Blockly.Kidtronics');
 
 var includes = require('../blockly/generators/Kidtronics/includes.js');
 
+// Helper function that initiate LEDArrayConnection, 
+// the communication class to LEDArray module.
+var setupLedArrayConnection = function() {
+  Blockly.Kidtronics.definitionsAndIncludes_['LEDArrayConnectionInclude'] = includes.LEDArrayConnection;
+  Blockly.Kidtronics.definitionsAndIncludes_['LEDArrayConnectionDefinition'] = 
+    'LEDArrayConnection ledConnection;'; 
+  Blockly.Kidtronics.setups_['Serial'] = 'Serial.begin(LED_ARRAY_BAUD_RATE);';
+  Blockly.Kidtronics.setups_['LEDArrayConnection'] = 'ledConnection.setSerial(&Serial);';
+}
+
 Blockly.Kidtronics['output_turn_on_num_leds'] = function(block) {
-    var value_num = Blockly.Kidtronics.valueToCode(block, 'NUM', Blockly.Kidtronics.ORDER_ATOMIC) || 0;
-    Blockly.Kidtronics.definitionsAndIncludes_['LEDArrayConnectionInclude'] = includes.LEDArrayConnection;
-    Blockly.Kidtronics.definitionsAndIncludes_['LEDArrayConnectionDefinition'] = 'LEDArrayConnection ledConnection;'; 
-    Blockly.Kidtronics.setups_['Serial'] = 'Serial.begin(LED_ARRAY_BAUD_RATE);';
-    Blockly.Kidtronics.setups_['LEDArrayConnection'] = 'ledConnection.setSerial(&Serial);';
-    var code = 'ledConnection.setNumberOfLEDsOn((unsigned int)' + value_num + ');\n';
+    var value_num = 
+      Blockly.Kidtronics.valueToCode(block, 'NUM', Blockly.Kidtronics.ORDER_ATOMIC) || 0;
+    var dropdown_direction_dropdown = block.getFieldValue('DIRECTION_DROPDOWN');
+    var ledLightUpDirection = dropdown_direction_dropdown === 'LEFT' 
+      ? 'LEDArrayConnection::LEFT'
+      : 'LEDArrayConnection::RIGHT';
+
+    setupLedArrayConnection();
+    var code = 'ledConnection.setNumberOfLEDsOnWithVar(' 
+      + value_num + ', ' + ledLightUpDirection + ');\n';
     return code;
   };
+
+Blockly.Kidtronics['output_turn_on_led_at_index'] = function(block) {
+  var value_led_index = 
+    Blockly.Kidtronics.valueToCode(block, 'LED_INDEX', Blockly.Kidtronics.ORDER_ATOMIC) || 0;
+  var value_led_state = 
+    Blockly.Kidtronics.valueToCode(block, 'LED_STATE', Blockly.Kidtronics.ORDER_ATOMIC) || 'false';
+  setupLedArrayConnection();
+  var code = 'ledConnection.setLEDStateWithVar(' + value_led_index + ', ' + value_led_state + ');\n';
+  return code;
+};
+  
+Blockly.Kidtronics['output_digital_voltage'] = function(block) {
+  var dropdown_voltage_dropdown = block.getFieldValue('VOLTAGE_DROPDOWN');
+  var code = dropdown_voltage_dropdown;
+  return [code, Blockly.Kidtronics.ORDER_ATOMIC];
+};
+  
+Blockly.Kidtronics['output_on_off'] = function(block) {
+  var dropdown_on_off_dropdown = block.getFieldValue('ON_OFF_DROPDOWN');
+  var code = dropdown_on_off_dropdown === "ON" ? 'true' : 'false';
+  return [code, Blockly.Kidtronics.ORDER_ATOMIC];
+};

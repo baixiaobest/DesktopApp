@@ -13,13 +13,9 @@ void setup()
 
 
 void loop() {
-  for (i = 0; i <= 8; i++) {
-    ledConnection.setNumberOfLEDsOn((unsigned int)i);
-    delay(500);
-  }
-  for (i = 8; i >= 0; i--) {
-    ledConnection.setNumberOfLEDsOn((unsigned int)i);
-    delay(500);
+  for (i = 1; i <= 8; i++) {
+    ledConnection.setLEDStateWithVar(i, true);
+    delay(1000);
   }
 
 }

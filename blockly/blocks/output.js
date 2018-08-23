@@ -1,20 +1,5 @@
 /**
- * Visual Blocks Language
- *
- * Copyright 2012 Fred Lin.
- * https://github.com/gasolin/BlocklyDuino
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * author: Baixiao Huang 8/22/2018
  */
 'use strict';
 
@@ -28,11 +13,51 @@ Blockly.Blocks['output_turn_on_num_leds'] = {
           .setCheck("Number")
           .appendField("Turn on");
       this.appendDummyInput()
-          .appendField("LEDs");
+          .appendField("LEDs from")
+          .appendField(new Blockly.FieldDropdown([["left","LEFT"], ["right","RIGHT"]]), "DIRECTION_DROPDOWN");
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(195);
+      this.setColour(230);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.Blocks['output_turn_on_led_at_index'] = {
+    init: function() {
+      this.appendValueInput("LED_INDEX")
+          .setCheck("Number")
+          .appendField("Set LED at");
+      this.appendValueInput("LED_STATE")
+          .setCheck("Boolean")
+          .appendField("to");
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(230);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.Blocks['output_digital_voltage'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField(new Blockly.FieldDropdown([["HIGH","HIGH"], ["LOW","LOW"]]), "VOLTAGE_DROPDOWN");
+      this.setOutput(true, "Boolean");
+      this.setColour(230);
+   this.setTooltip("");
+   this.setHelpUrl("");
+    }
+  };
+  
+  Blockly.Blocks['output_on_off'] = {
+    init: function() {
+      this.appendDummyInput()
+          .appendField(new Blockly.FieldDropdown([["ON","ON"], ["OFF","OFF"]]), "ON_OFF_DROPDOWN");
+      this.setOutput(true, "Boolean");
+      this.setColour(230);
    this.setTooltip("");
    this.setHelpUrl("");
     }

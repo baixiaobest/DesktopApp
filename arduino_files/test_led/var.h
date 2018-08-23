@@ -13,20 +13,31 @@ class var {
 public:
     enum VarType {
         INTEGER,
-        STRING
+        STRING,
+        BOOLEAN,
+        DOUBLE
     };
 private:
     // When var takes integer value, it is stored here.
     int m_integerValue;
     
     // When var takes string value, it is stored here.
-    char* m_stringValue;
+    char* m_stringValue = nullptr;
+
+    // When var takes boolean value, it is stored here.
+    bool m_booleanValue;
+
+    // When var takes double value, it is stored here.
+    double m_doubleValue;
     
     // Variable type currently this var is using.
     enum VarType m_currentType;
     
     // Copy the other variable into itself.
     void copy(const var& other);
+
+    // Get value in double
+    double getValueAsDouble() const;
     
 public:
     var();
@@ -36,6 +47,8 @@ public:
     var(const char* string);
     // Copy construct bool var.
     var(bool boolean);
+    // Copy construction double var.
+    var(double doubleVar);
     // Copy construct var.
     var(const var& otherVar);
     
@@ -44,6 +57,8 @@ public:
     
     // Assignment operator.
     var& operator=(const var& other);
+
+    VarType getType(){return m_currentType;}
     
     // Comparison operators.
     friend bool operator==(const var& lhs, const var& rhs);

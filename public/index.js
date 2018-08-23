@@ -20,11 +20,16 @@ $("#devices_list").click(function(){
     console.log("hi");
     $('#devices_list').empty();
     var files = shell.ls('-A','/dev');
+    var count = 0;
     for(var i = 0; i < files.length; i++){
         var subStr = files[i].substring(0,6);
         if(subStr === 'cu.usb')
         {
+            count++;
             $('#devices_list').append('<option>'+files[i]+'</option>');
         }
+    }
+    if(count == 0){
+        $('#devices_list').append('<option>'+'No device detected'+'</option>');
     }
 });

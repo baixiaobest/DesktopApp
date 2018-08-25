@@ -44,6 +44,11 @@ bool LEDArrayConnection::setLEDState(unsigned int pinNum, bool state) {
 	else {
 		m_LEDState &= ~(1 << pinNum);
 	}
+	return true;
+}
+
+bool LEDArrayConnection::setLEDStateWithVar(var pinNum, bool state) {
+	setLEDState((unsigned int) pinNum-1, state);
 	return sendLEDState();
 }
 
@@ -52,15 +57,30 @@ bool LEDArrayConnection::setLEDArrayState(char arrayState) {
 	return sendLEDState();
 }
 
-bool LEDArrayConnection::setNumberOfLEDsOn(unsigned int numLedsOn) {
+bool LEDArrayConnection::setNumberOfLEDsOn(unsigned int numLedsOn, Direction direction) {
 	if (numLedsOn > NUMBER_LEDS) {
 		numLedsOn = NUMBER_LEDS;
 	}
 	m_LEDState = 0x00;
-	for (int i=0; i<numLedsOn; i++) {
-		setLEDState(i, true);
+
+	// Light up LEDs from the left.
+	if (direction == LEFT) {
+		for (int i=0; i<numLedsOn; i++) {
+			setLEDState(i, true);
+		}
 	}
+	// Light up LEDs from the right
+	else if (direction == RIGHT) {
+		for (int i = NUMBER_LEDS-numLedsOn; i <= NUMBER_LEDS-1; i++) {
+			setLEDState(i, true);
+		}
+	}
+
 	return sendLEDState();
+}
+
+bool LEDArrayConnection::setNumberOfLEDsOnWithVar(var numLedsOn, Direction direction) {
+	return setNumberOfLEDsOn((unsigned int) numLedsOn, direction);
 }
 
 bool LEDArrayConnection::sendLEDState() {

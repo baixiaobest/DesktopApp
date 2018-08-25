@@ -1,3 +1,6 @@
+/**
+ * author: Baixiao Huang 8/22/2018
+ */
 'use strict'
 
 goog.provide('Blockly.Kidtronics');

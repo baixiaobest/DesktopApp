@@ -23,7 +23,6 @@ var::var() {
 var::var(int integer) {
     m_integerValue = integer;
     m_currentType = VarType::INTEGER;
-    m_stringValue = nullptr;
 }
 
 /** Allocate string buffer for storage. */
@@ -40,8 +39,13 @@ var::var(const var& other) {
 }
 
 var::var(bool boolean) {
-    m_integerValue = int(boolean);
-    m_currentType = INTEGER;
+    m_booleanValue = boolean;
+    m_currentType = VarType::BOOLEAN;
+}
+
+var::var(double doubleVar) {
+    m_doubleValue = doubleVar;
+    m_currentType = VarType::DOUBLE;
 }
 
 /** Free up allocated string. */
@@ -61,87 +65,100 @@ var& var::operator=(const var& other) {
     }
     return *this;
 }
+/** Get value in double so we can compare int with double. */
+double var::getValueAsDouble() const {
+    if(m_currentType == var::VarType::INTEGER) {
+        return m_integerValue;
+    }
+    else if(m_currentType == var::VarType::DOUBLE) {
+        return m_doubleValue;
+    }
+    else if(m_currentType == var::VarType::BOOLEAN) {
+        return m_booleanValue;
+    }
+    return 0;
+}
 
 /** Compare two variable if they are equal. Only same type can be compared. */
 bool operator==(const var& lhs, const var& rhs) {
-    if (lhs.m_currentType != rhs.m_currentType) {
-        return false;
-    }
     switch(lhs.m_currentType) {
         case var::VarType::STRING:
+            if(rhs.m_currentType != var::VarType::STRING) return false;
             return strcmp(lhs.m_stringValue, rhs.m_stringValue) == 0;
         case var::VarType::INTEGER:
-            return lhs.m_integerValue == rhs.m_integerValue;
+        case var::VarType::BOOLEAN:
+        case var::VarType::DOUBLE:
+            return lhs.getValueAsDouble() == rhs.getValueAsDouble();
         default:
             return false;
     }
 }
 
 bool operator!=(const var& lhs, const var& rhs) {
-    if (lhs.m_currentType != rhs.m_currentType) {
-        return true;
-    }
     switch(lhs.m_currentType) {
         case var::VarType::STRING:
+            if(rhs.m_currentType != var::VarType::STRING) return false;
             return strcmp(lhs.m_stringValue, rhs.m_stringValue) != 0;
         case var::VarType::INTEGER:
-            return lhs.m_integerValue != rhs.m_integerValue;
+        case var::VarType::BOOLEAN:
+        case var::VarType::DOUBLE:
+            return lhs.getValueAsDouble() != rhs.getValueAsDouble();
         default:
             return false;
     }
 }
 
 bool operator>(const var& lhs, const var& rhs) {
-    if (lhs.m_currentType != rhs.m_currentType) {
-        return false;
-    }
     switch(lhs.m_currentType) {
         case var::VarType::STRING:
+            if(rhs.m_currentType != var::VarType::STRING) return false;
             return strcmp(lhs.m_stringValue, rhs.m_stringValue) > 0;
         case var::VarType::INTEGER:
-            return lhs.m_integerValue > rhs.m_integerValue;
+        case var::VarType::DOUBLE:
+        case var::VarType::BOOLEAN:
+            return lhs.getValueAsDouble() > rhs.getValueAsDouble();
         default:
             return false;
     }
 }
 
 bool operator>=(const var& lhs, const var& rhs) {
-    if (lhs.m_currentType != rhs.m_currentType) {
-        return false;
-    }
     switch(lhs.m_currentType) {
         case var::VarType::STRING:
+            if(rhs.m_currentType != var::VarType::STRING) return false;
             return strcmp(lhs.m_stringValue, rhs.m_stringValue) >= 0;
         case var::VarType::INTEGER:
-            return lhs.m_integerValue >= rhs.m_integerValue;
+        case var::VarType::DOUBLE:
+        case var::VarType::BOOLEAN:
+            return lhs.getValueAsDouble() >= rhs.getValueAsDouble();
         default:
             return false;
     }
 }
 
 bool operator<(const var& lhs, const var& rhs) {
-    if (lhs.m_currentType != rhs.m_currentType) {
-        return false;
-    }
     switch(lhs.m_currentType) {
         case var::VarType::STRING:
+            if(rhs.m_currentType != var::VarType::STRING) return false;
             return strcmp(lhs.m_stringValue, rhs.m_stringValue) < 0;
         case var::VarType::INTEGER:
-            return lhs.m_integerValue < rhs.m_integerValue;
+        case var::VarType::DOUBLE:
+        case var::VarType::BOOLEAN:
+            return lhs.getValueAsDouble() < rhs.getValueAsDouble();
         default:
             return false;
     }
 }
 
 bool operator<=(const var& lhs, const var& rhs) {
-    if (lhs.m_currentType != rhs.m_currentType) {
-        return false;
-    }
     switch(lhs.m_currentType) {
         case var::VarType::STRING:
+            if(rhs.m_currentType != var::VarType::STRING) return false;
             return strcmp(lhs.m_stringValue, rhs.m_stringValue) <= 0;
         case var::VarType::INTEGER:
-            return lhs.m_integerValue <= rhs.m_integerValue;
+        case var::VarType::DOUBLE:
+        case var::VarType::BOOLEAN:
+            return lhs.getValueAsDouble() <= rhs.getValueAsDouble();
         default:
             return false;
     }
@@ -164,22 +181,6 @@ char* combineTwoStrings(char* lstr, char* rstr){
  * When two are of different types, convert them into string and append them.
  */
 var operator+(var lhs, const var& rhs) {
-    // convert both variables to string.
-    if (lhs.m_currentType != rhs.m_currentType) {
-        char intStr[INTEGER_CHAR_LENGTH];
-        char* buffer;
-        if (rhs.m_currentType == var::VarType::STRING) {
-            snprintf(intStr, sizeof(intStr), "%d", lhs.m_integerValue);
-            buffer = combineTwoStrings(intStr, rhs.m_stringValue);
-        }
-        else {
-            snprintf(intStr, sizeof(intStr), "%d", rhs.m_integerValue);
-            buffer = combineTwoStrings(lhs.m_stringValue, intStr);
-        }
-        var newVar(buffer);
-        free(buffer);
-        return newVar;
-    }
     switch(lhs.m_currentType) {
         case var::VarType::STRING:
         {
@@ -189,26 +190,45 @@ var operator+(var lhs, const var& rhs) {
             return newVar;
         }
         case var::VarType::INTEGER:
-            return var(lhs.m_integerValue + rhs.m_integerValue);
+            if(rhs.m_currentType == var::VarType::INTEGER){
+                return var(lhs.m_integerValue + rhs.m_integerValue);
+            }
+            else if(rhs.m_currentType == var::VarType::DOUBLE){
+                return var(lhs.getValueAsDouble() + rhs.getValueAsDouble());
+            }
+            return lhs;
+        case var::VarType::DOUBLE:
+            return var(lhs.getValueAsDouble() + rhs.getValueAsDouble());
         default:
             return lhs;
     }
 }
 
+
+
 var operator-(var lhs, const var& rhs) {
-    if (lhs.m_currentType == var::VarType::INTEGER
-        && rhs.m_currentType == var::VarType::INTEGER)
-    {
-        return var(lhs.m_integerValue - rhs.m_integerValue);
+    if (lhs.m_currentType == var::VarType::INTEGER) {
+        if(rhs.m_currentType == var::VarType::INTEGER){
+            return var(lhs.m_integerValue - rhs.m_integerValue);
+        }
+        else if(rhs.m_currentType == var::VarType::DOUBLE){
+            return var(lhs.getValueAsDouble() - rhs.getValueAsDouble());
+        }
     }
-    else {
-        return lhs;
+    else if(lhs.m_currentType == var::VarType::DOUBLE){
+        if(rhs.m_currentType == var::VarType::INTEGER || rhs.m_currentType == var::VarType::DOUBLE){
+            return var(lhs.getValueAsDouble() - rhs.getValueAsDouble());
+        }
     }
+    return lhs;
 }
 
 var& var::operator++() {
     if (m_currentType == VarType::INTEGER) {
         m_integerValue += 1;
+    }
+    else if(m_currentType == VarType::DOUBLE) {
+        m_doubleValue += 1;
     }
     return *this;
 }
@@ -222,6 +242,9 @@ var var::operator++(int) {
 var& var::operator--() {
     if (m_currentType == VarType::INTEGER) {
         m_integerValue -= 1;
+    }
+    else if(m_doubleValue == VarType::DOUBLE) {
+        m_doubleValue -= 1;
     }
     return *this;
 }
@@ -247,8 +270,8 @@ var::operator unsigned int() const {
 }
 
 var::operator bool() const {
-    if (m_currentType == INTEGER) {
-        return m_integerValue != 0;
+    if (m_currentType == VarType::BOOLEAN) {
+        return m_booleanValue;
     }
     return false;
 }
@@ -259,6 +282,12 @@ void var::copy(const var& other) {
         m_stringValue = (char*) malloc(length);
         strncpy(m_stringValue, other.m_stringValue, length);
         m_stringValue[length] = '\0';
+    }
+    else if(other.m_currentType == VarType::BOOLEAN) {
+        m_booleanValue = other.m_booleanValue;
+    }
+    else if(other.m_currentType == VarType::DOUBLE) {
+        m_doubleValue = other.m_doubleValue;
     }
     else {
         m_integerValue = other.m_integerValue;

@@ -11,4 +11,4 @@ build-uno/LEDArrayConnection.cpp.o: LEDArrayConnection.cpp \
  /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/USBAPI.h \
  /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/Arduino.h \
  /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/variants/standard/pins_arduino.h \
- ModulesBaudRate.h SerializerUtils.h MessageConstants.h
+ var.h ModulesBaudRate.h SerializerUtils.h MessageConstants.h

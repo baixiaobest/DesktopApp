@@ -42,6 +42,16 @@ Blockly.Kidtronics['output_turn_on_led_at_index'] = function(block) {
   var code = 'ledConnection.setLEDStateWithVar(' + value_led_index + ', ' + value_led_state + ');\n';
   return code;
 };
+
+Blockly.Kidtronics['output_led_array'] = function(block) {
+  setupLedArrayConnection();
+  var code = 'ledConnection.setLEDState(0b';
+  for (var i=0; i<8; i++) {
+    code += (block.getFieldValue('BUTTON_'+i) === 'TRUE' ? '1' : '0');
+  }
+  code += ');\n';
+  return code;
+};
   
 Blockly.Kidtronics['output_digital_voltage'] = function(block) {
   var dropdown_voltage_dropdown = block.getFieldValue('VOLTAGE_DROPDOWN');

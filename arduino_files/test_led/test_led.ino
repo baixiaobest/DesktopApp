@@ -2,8 +2,6 @@
 #include "var.h"
 #include "ModulesBaudRate.h"
 
-var i;
-
 LEDArrayConnection ledConnection;
 void setup()
 {
@@ -13,9 +11,6 @@ void setup()
 
 
 void loop() {
-  for (i = 1; i <= 8; i++) {
-    ledConnection.setLEDStateWithVar(i, true);
-    delay(1000);
-  }
+  ledConnection.setLEDState(0b11001011);
 
 }

@@ -188,18 +188,9 @@ Blockly.Field.prototype.init = function() {
   if (!this.visible_) {
     this.fieldGroup_.style.display = 'none';
   }
-  this.borderRect_ = Blockly.utils.createSvgElement('rect',
-      {
-        'rx': 4,
-        'ry': 4,
-        'x': -Blockly.BlockSvg.SEP_SPACE_X / 2,
-        'y': 0,
-        'height': 16
-      }, this.fieldGroup_);
-  /** @type {!Element} */
-  this.textElement_ = Blockly.utils.createSvgElement('text',
-      {'class': 'blocklyText', 'y': this.size_.height - 12.5},
-      this.fieldGroup_);
+  this.initBorderRect();
+
+  this.initTextElement_();
 
   this.updateEditable();
   this.sourceBlock_.getSvgRoot().appendChild(this.fieldGroup_);
@@ -209,6 +200,30 @@ Blockly.Field.prototype.init = function() {
   // Force a render.
   this.render_();
 };
+
+/**
+ * Initialize border rectangle.
+ */
+Blockly.Field.prototype.initBorderRect = function() {
+  this.borderRect_ = Blockly.utils.createSvgElement('rect',
+      {
+        'rx': 4,
+        'ry': 4,
+        'x': -Blockly.BlockSvg.SEP_SPACE_X / 2,
+        'y': 0,
+        'height': 16
+      }, this.fieldGroup_);
+}
+
+/**
+ * Initialize textElement_.
+ */
+Blockly.Field.prototype.initTextElement_ = function() {
+  /** @type {!Element} */
+  this.textElement_ = Blockly.utils.createSvgElement('text',
+      {'class': 'blocklyText', 'y': this.size_.height - 12.5},
+      this.fieldGroup_);
+}
 
 /**
  * Initializes the model of the field after it has been installed on a block.

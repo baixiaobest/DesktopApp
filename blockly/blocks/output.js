@@ -40,12 +40,28 @@ Blockly.Blocks['output_turn_on_num_leds'] = {
    this.setHelpUrl("");
     }
   };
+
+  Blockly.Blocks['output_led_array'] = {
+    init: function() {
+        var dummyInput = this.appendDummyInput()
+            .appendField("Set LEDs");
+        for (var i=0; i<8; i++) {
+            dummyInput.appendField(new Blockly.FieldToggleButton(true), "BUTTON_"+i);
+        } 
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);  
+        this.setColour(230);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+  };
   
   Blockly.Blocks['output_digital_voltage'] = {
     init: function() {
       this.appendDummyInput()
           .appendField(new Blockly.FieldDropdown([["HIGH","HIGH"], ["LOW","LOW"]]), "VOLTAGE_DROPDOWN");
-      this.setOutput(true, "Boolean");
+      this.setOutput('TRUE', "Boolean");
       this.setColour(230);
    this.setTooltip("");
    this.setHelpUrl("");

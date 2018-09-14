@@ -127,6 +127,8 @@
         </shadow>
       </value>
     </block>
+    <block type="output_led_array">
+    </block>
     <block type="output_on_off">
       <field name="ON_OFF_DROPDOWN">ON</field>
     </block>
